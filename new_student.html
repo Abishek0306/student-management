@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Details</title>
+  
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <style>
+    #a{
+      background: linear-gradient(to bottom, rgb(24, 217, 243), rgb(15, 7, 252));
+    }
+  </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="student_details.html">All students </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="new_student.html">Add new student </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="search_student.html">Search student </a>
+              </li>
+            
+          </ul>
+        </div>
+      </nav>
+      
+      
+  <div class="container mt-5" >
+    <h1 class="text-center">Student Details</h1>
+    
+    
+    <div class="card mb-4 vh">
+      <div class="card-header">
+        Add New Student
+      </div>
+      <div class="card-body" id="a">
+        <form id="add-student-form" >
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="sid">Student ID</label>
+              <input type="number" class="form-control" id="sid" name="sid" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="firstName">First Name</label>
+              <input type="text" class="form-control" id="firstName" name="firstName" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="lastName">Last Name</label>
+              <input type="text" class="form-control" id="lastName" name="lastName" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="city">City</label>
+              <input type="text" class="form-control" id="city" name="city" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="course">Course</label>
+              <input type="text" class="form-control" id="course" name="course" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="guardian">Guardian</label>
+              <input type="text" class="form-control" id="guardian" name="guardian" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="subject">Subject</label>
+              <input type="text" class="form-control" id="subject" name="subject" required>
+            </div>
+          </div>
+          <center><button type="submit" class="btn btn-primary">Add Student</button></center>
+        </form>
+      </div>
+    </div>
+    
+   
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      
+
+      
+      $('#add-student-form').on('submit', function(event) {
+        event.preventDefault();
+        
+        const studentData = {
+          sid: $('#sid').val(),
+          firstName: $('#firstName').val(),
+          lastName: $('#lastName').val(),
+          email: $('#email').val(),
+          city: $('#city').val(),
+          course: $('#course').val(),
+          guardian: $('#guardian').val(),
+          subject: $('#subject').val()
+        };
+
+        $.ajax({
+          url: '/api/students',
+          method: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(studentData),
+          success: function(data) {
+            window.location.href = "student_details.html";
+          },
+          error: function(error) {
+            console.error('Error adding student:', error);
+          }
+        });
+      });
+    });
+  </script>
+
+<footer class="footer bg-dark text-white mt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+       
+      </div>
+    </div>
+    
+    <p class="text-center">© 2024 Student. All rights reserved.</p>
+  </div>
+</footer>
+
+
+  
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management</title>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+       
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="student_details.html">All students </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="new_student.html">Add new student </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="search_student.html">Search student </a>
+              </li>
+            
+          </ul>
+        </div>
+      </nav>
+  <div class="container">
+ 
+
+
+
+    <h2>Search Students</h2>
+<div class="form-group">
+  <input type="text" class="form-control mb-2" id="searchBySid" placeholder="Search by SID">
+  <button class="btn btn-info mb-2" onclick="searchBySid()">Search</button>
+  <div id="sidResults" class="mt-3"></div>
+  
+  <input type="text" class="form-control mb-2" id="searchByFirstName" placeholder="Search by First Name">
+  <button class="btn btn-info mb-2" onclick="searchByFirstName()">Search</button>
+  <div id="firstNameResults" class="mt-3"></div>
+  
+  <input type="text" class="form-control mb-2" id="searchByLastName" placeholder="Search by Last Name">
+  <button class="btn btn-info mb-2" onclick="searchByLastName()">Search</button>
+  <div id="lastNameResults" class="mt-3"></div>
+  
+  <input type="text" class="form-control mb-2" id="searchByEmail" placeholder="Search by Email">
+  <button class="btn btn-info mb-2" onclick="searchByEmail()">Search</button>
+  <div id="emailResults" class="mt-3"></div>
+  
+  <input type="text" class="form-control mb-2" id="searchByCity" placeholder="Search by City">
+  <button class="btn btn-info mb-2" onclick="searchByCity()">Search</button>
+  <div id="cityResults" class="mt-3"></div>
+  
+  <input type="text" class="form-control mb-2" id="searchByCourse" placeholder="Search by Course">
+  <button class="btn btn-info mb-2" onclick="searchByCourse()">Search</button>
+  <div id="courseResults" class="mt-3"></div>
+  
+  <input type="text" class="form-control mb-2" id="searchByGuardian" placeholder="Search by Guardian">
+  <button class="btn btn-info mb-2" onclick="searchByGuardian()">Search</button>
+  <div id="guardianResults" class="mt-3"></div>
+</div>
+
+  </div>
+
+  <script>
+   
+    function searchBySid() {
+  const sid = $("#searchBySid").val();
+  $.ajax({
+    url: `/api/students/sid/${sid}`,
+    type: 'GET',
+    success: function(data) {
+      displayStudent(data, "#sidResults");
+    },
+    error: function(error) {
+      alert('Error finding student: ' + error.responseText);
+    }
+  });
+}
+
+function searchByFirstName() {
+  const firstName = $("#searchByFirstName").val();
+  $.ajax({
+    url: `/api/students/firstname/${firstName}`,
+    type: 'GET',
+    success: function(data) {
+      displayStudents(data, "#firstNameResults");
+    },
+    error: function(error) {
+      alert('Error finding students: ' + error.responseText);
+    }
+  });
+}
+
+function searchByLastName() {
+  const lastName = $("#searchByLastName").val();
+  $.ajax({
+    url: `/api/students/lastname/${lastName}`,
+    type: 'GET',
+    success: function(data) {
+      displayStudents(data, "#lastNameResults");
+    },
+    error: function(error) {
+      alert('Error finding students: ' + error.responseText);
+    }
+  });
+}
+
+function searchByEmail() {
+  const email = $("#searchByEmail").val();
+  $.ajax({
+    url: `/api/students/email/${email}`,
+    type: 'GET',
+    success: function(data) {
+      displayStudents(data, "#emailResults");
+    },
+    error: function(error) {
+      alert('Error finding students: ' + error.responseText);
+    }
+  });
+}
+
+function searchByCity() {
+  const city = $("#searchByCity").val();
+  $.ajax({
+    url: `/api/students/city/${city}`,
+    type: 'GET',
+    success: function(data) {
+      displayStudents(data, "#cityResults");
+    },
+    error: function(error) {
+      alert('Error finding students: ' + error.responseText);
+    }
+  });
+}
+
+function searchByCourse() {
+  const course = $("#searchByCourse").val();
+  $.ajax({
+    url: `/api/students/course/${course}`,
+    type: 'GET',
+    success: function(data) {
+      displayStudents(data, "#courseResults");
+    },
+    error: function(error) {
+      alert('Error finding students: ' + error.responseText);
+    }
+  });
+}
+
+function searchByGuardian() {
+  const guardian = $("#searchByGuardian").val();
+  $.ajax({
+    url: `/api/students/guardian/${guardian}`,
+    type: 'GET',
+    success: function(data) {
+      displayStudents(data, "#guardianResults");
+    },
+    error: function(error) {
+      alert('Error finding students: ' + error.responseText);
+    }
+  });
+}
+
+function displayStudent(student, target) {
+  $(target).html(`
+    <div class="student-info border p-3 mb-3">
+      <p><strong>ID:</strong> ${student.sid}</p>
+      <p><strong>First Name:</strong> ${student.firstName}</p>
+      <p><strong>Last Name:</strong> ${student.lastName}</p>
+      <p><strong>Email:</strong> ${student.email}</p>
+      <p><strong>City:</strong> ${student.city}</p>
+      <p><strong>Course:</strong> ${student.course}</p>
+      <p><strong>Guardian:</strong> ${student.guardian}</p>
+      <p><strong>Subject:</strong> ${student.subject}</p>
+    </div>
+  `);
+}
+
+function displayStudents(students, target) {
+  let content = '';
+  students.forEach(student => {
+    content += `
+      <div class="student-info border p-3 mb-3">
+        <p><strong>ID:</strong> ${student.sid}</p>
+        <p><strong>First Name:</strong> ${student.firstName}</p>
+        <p><strong>Last Name:</strong> ${student.lastName}</p>
+        <p><strong>Email:</strong> ${student.email}</p>
+        <p><strong>City:</strong> ${student.city}</p>
+        <p><strong>Course:</strong> ${student.course}</p>
+        <p><strong>Guardian:</strong> ${student.guardian}</p>
+        <p><strong>Subject:</strong> ${student.subject}</p>
+      </div>
+    `;
+  });
+  $(target).html(content);
+}
+
+
+   
+   
+  </script>
+
+
+<footer class="footer bg-dark text-white mt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+       
+      </div>
+    </div>
+    
+    <p class="text-center">© 2024 Student. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
